@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+    <link href="stylesheets/jquery-ui/base/jquery-ui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .my-style{
+            color: 'salmon';
+            font-size: 50px;
+            transition: .5s;
+        }
+
+        .question.close{
+            background: url('./images/close.png') no-repeat 0 10px;
+        }
+
+        .question{
+            padding: 10px 0 10px 20px;
+            background: url('./images/open.png') no-repeat 0 10px;
+        }
+    </style>
+
+
+    
+</head>
+<body>
+    
+    <div class="tabs">
+        <ul>
+            <li><a class="a_tab1" href="#tab1">.addClass() .removeClass()</a></li>
+            <li><a class="a_tab2" href="#tab2">.hasClass()</a></li>
+        </ul>
+
+        <div id="tab1">
+            <div>歡迎來"jQuery & jQuery UI"的程式設計殿堂</div>
+        </div>
+
+        <div id="tab2">
+            <div class="title">A One Page FAQ</div>
+            <div class="card">
+                <div class="question">Q : I've heard that JavaScript is the long-lost fountain of youth. Is this true?</div>
+                <div class="answer">
+                    <p> A : Why, yes it can! It's the most versatile programming language ever created and is trained to provide financial management advice, life-saving CPR, and even to take care of household pets.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="question">Q : I've heard that JavaScript is the long-lost fountain of youth. Is this true?</div>
+                <div class="answer">
+                    <p> A : Why, yes it can! It's the most versatile programming language ever created and is trained to provide financial management advice, life-saving CPR, and even to take care of household pets.</p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="question">Q : I've heard that JavaScript is the long-lost fountain of youth. Is this true?</div>
+                <div class="answer">
+                    <p> A : Why, yes it can! It's the most versatile programming language ever created and is trained to provide financial management advice, life-saving CPR, and even to take care of household pets.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        $(function (){
+            $('.tabs').tabs();
+
+            $('.a_tab2').click();
+
+            $('.tabs #tab1').hover(
+                function (){
+                    $(this).addClass('my-style');
+                },
+
+                function (){
+                    $(this).removeClass('my-style');
+                }
+            )
+
+            // p2-------------------------------
+
+            $('.title').css({
+                fontWeight: 'bold',
+                textAlign: 'center'
+            })
+
+
+            // overwite css in <style>--
+            // $('.question').css({
+            //     padding: '10px 0 10px 20px',
+            //     background: `url('./images/open.png') no-repeat 0 10px`
+            // })
+
+
+            $('.answer').css({
+                padding: '0 20px'
+            })
+
+            $('.answer').hide();
+
+            $('.question').click(function (){
+                if ($(this).hasClass('close')){
+                    $(this).next().fadeOut();
+                    $(this).removeClass('close');
+                } else {
+                    $(this).next().slideDown();
+                    $(this).addClass('close');
+                }
+            })
+        })
+
+
+    </script>
+</body>
+</html>

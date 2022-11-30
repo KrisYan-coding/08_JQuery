@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- --import JQ-- -->
+    <!-- import downloaded local files-- -->
+    <script src="./javascripts/jquery-3.6.1.min.js"></script>
+    <script src="./javascripts/jquery-ui.min.js"></script>
+
+    <!-- link CDN-- -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+
+    <script>
+        function init(){
+
+            document.querySelector('.btn-hello').onclick = function (){
+                alert('Hello World.')
+            }
+        }
+    </script>
+</head>
+<body onload="init()">
+
+    <button class="btn-hello">click me</button>
+
+    <!-- ----js practice---- -->
+
+    <!-- -1- -->
+    <!-- 不要加() -->
+    <!-- <button class="btn_hello">click me</button>
+
+    <script>
+        let btnHello = document.querySelector('.btn_hello');
+
+        btnHello.addEventListener('click', showHello);
+
+        function showHello(){
+            alert('Hello World.')
+        }
+    </script> -->
+
+
+    <!-- -2- -->
+    <!-- 不要加() -->
+    <!-- <button class="btn-hello">click me</button>
+
+    <script>
+        document.querySelector('.btn-hello').onclick = showHello;
+
+        function showHello(){
+            alert('Hello World.')
+        }
+    </script> -->
+
+
+    <!-- -3- -->
+    <!-- <button class="btn-hello">click me</button>
+
+    <script>
+        // document.querySelector('.btn-hello').addEventListener('click', () => {
+        //     alert('Hello World.')
+        // })
+
+        document.querySelector('.btn-hello').addEventListener('click', () => alert('Hello World.'))
+    </script> -->
+
+
+    <!-- -4- -->
+    <!-- 要加() -->
+    <!-- <button onclick="showHello()">click me</button>;
+
+    <script>
+        function showHello(){
+            alert('Hello World.')
+        }
+    </script> -->
+
+
+
+    
+</body>
+</html>

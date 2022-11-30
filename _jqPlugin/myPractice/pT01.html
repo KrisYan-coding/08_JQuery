@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- jQuery-css: base -> "樣式主題"-- -->
+    <link rel="stylesheet" href="./stylesheets/jquery-ui/base/jquery-ui.css">
+
+    <!-- jquery(先) -> "jQuery"-- -->
+    <script src="./javascripts/jquery-3.6.1.js"></script>
+    <!-- jQuery-ui(後) -> "樣式功能"-- -->
+    <script src="./javascripts/jquery-ui.min.js"></script>
+
+    <script>
+        $(function () {
+            // $('div:first') = $('div:eq(0)') = first-child = nth-child(1)
+            $('.tabs').tabs();
+            // --呼叫 "樣式功能" api
+
+            // set up a event listen of clicking <h1>--
+            $('.tab h1').click(function (){
+                console.log(this);
+                console.log($(this));
+
+                // not working--
+                // this.css({
+                //     fontSize: '50px',
+                //     color: 'red'
+                // })
+
+                // $(this).css('font-size', '50px').css('color', 'red');
+                
+                // $(this).css({
+                //     fontSize: '50px',
+                //     color: 'red'
+                // })
+
+                // $(this).css({
+                //     fontSize: '+=2',
+                //     color: 'green'
+                // })
+            })
+
+            $('.tab .btn-fontSize-large').click(function (){
+                $(this).next().next().css({
+                    fontSize: '+=2'
+                })
+            })
+            
+            $('.tab .btn-fontSize-small').click(function (){
+                // $(this).parent().find('h1').css({
+                //     fontSize: '-=2'
+                // })
+
+                $(this).siblings('h1').css({
+                    fontSize: '-=2'
+                })
+            })
+        })
+        // --when document finish loading, do function (event handler/event listener)
+
+        // {} : object literal / object expression -> no need to type 'new' before, since js will add new
+        // "" : string literal / string expression
+        // function (){} : anonymous function
+        // () => {} : arrow function (also anonymous function)
+    </script>
+
+
+</head>
+<body>
+    <div class="tabs">
+        <ul>
+            <li><a href="#p1">第一頁</a></li>
+            <li><a href="#p2">第二頁</a></li>
+            <li><a href="#p3">第三頁</a></li>
+        </ul>
+
+        <div class="tab" id="p1">
+            <button class="btn-fontSize-large">放大字體</button>            
+            <button class="btn-fontSize-small">縮小字體</button>
+            <h1>Hello World 1.</h1>
+        </div>
+        <div class="tab" id="p2">
+            <button class="btn-fontSize-large">放大字體</button>            
+            <button class="btn-fontSize-small">縮小字體</button>
+            <h1>Hello World 2.</h1>
+        </div>
+        <div class="tab" id="p3">
+            <button class="btn-fontSize-large">放大字體</button>            
+            <button class="btn-fontSize-small">縮小字體</button>
+            <h1>Hello World 3.</h1>
+        </div>
+    </div>
+
+    
+</body>
+</html>

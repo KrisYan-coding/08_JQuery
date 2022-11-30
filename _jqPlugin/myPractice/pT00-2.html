@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="./javascripts/jquery-3.6.1.min.js"></script>
+    <script src="./javascripts/jquery-ui.min.js"></script>
+    <script src="./stylesheets/jquery-ui/base/jquery-ui.css"></script>
+
+    <script>
+
+        jQuery(document).ready(function (){
+            jQuery(".btn-hello").click(function (){
+                alert('Hello World.');
+            })
+        })
+
+        // jQuery = $--
+        // $(document).ready(function (){
+        //     $(".btn-hello").click(function (){
+        //         alert('Hello World.');
+        //     })
+        // })
+
+        // short for when document ready--
+        $(function (){
+            $('.btn-hello3').click(function (){
+                alert('Hello World3.')
+            })
+        })
+
+
+        // :eq(n) -> :nth-child(n - 1)--
+        $(function (){
+            $('div:eq(1)').mouseover(function (){
+                this.style.color = 'red';
+            })
+            
+            $('div:eq(1)').mouseout(function (){
+                this.style.color = 'black';
+            })
+
+            // --this: 發生事件的物件
+            // 直接寫 this 不是物件，沒有 css屬性
+        })
+        
+        // :eq(n) -> :nth-child(n - 1)--
+        $(function (){
+            $('div:eq(2)').mouseover(function (){
+                // $(this).css('color', 'blue');
+                // $(this).css('font-size', '30px');
+
+                // short: 串聯呼叫--
+                // $(this).css('color', 'blue') return $(this)--
+                $(this).css('color', 'blue').css('font-size', '30px');
+            })
+
+
+            $('div:eq(2)').mouseout(function () {
+                $(this).css('color', '').css('font-size', '');
+                // --"" to reset style
+            })
+
+
+            $('div:eq(3)').mouseover(function () {
+                $(this).css({
+                    color: 'green',
+                    fontSize: '50px',
+                    // --use camelCase in JS for css propertym, or use ""
+                    // 'font-size': '50px'
+                })
+            })
+
+
+            $('div:eq(3)').mouseout(function () {
+                $(this).css({
+                    color: "",
+                    fontSize: "",
+                    fontStyle: 'italic'
+                })
+            })
+
+
+            // $('div:eq(4)').mouseover(function (event) {
+            //     $(event.currentTarget).css({
+            //         color: 'salmon',
+            //         fontSize: '50px'
+            //     })
+            // })
+
+            $('div:eq(4)').mouseover((e) => {
+                $(e.currentTarget).css({
+                    color: 'violet',
+                    fontSize: '50px'
+                })
+
+                console.log($(e.currentTarget).css('color'));
+                // --log css property value
+                // --若集合物件含多個物件，以第1個(index=0)集合物件的屬性為主
+            })
+            
+        })
+
+        // function Dog(name, age){
+        //     this.name = name;
+        //     this.age = age;
+        // }
+
+        let Dog = function (name, age) { // constructor: 建構函數
+            // property--
+            this.name = name;
+            this.age = age;
+
+            // changeName = function (name){
+            //     this.name = name;
+            // }
+            // --not working
+
+            // method--
+            this.bark = function () {
+                console.log(`${this.name} woof!`); // template literal 樣板字面值
+            }
+
+        }
+
+        let anna = new Dog('Anna', 2);
+        anna.bark();
+
+        // modify attribute if attribute exist--
+        anna.name = 'Cookie';
+        console.log(anna);
+
+        // add attribute if attribute not exist--
+        anna.color = 'white'; 
+        console.log(anna);
+
+
+        class Dog2{
+            constructor(name, age){
+                this.name = name;
+                this.age = age;
+            }
+
+            // this = class Dog2--
+            // changeName = function (name){
+            //     console.log(this);
+            //     this.name = name;
+            // }
+
+            // this = class Dog2--
+            changeName = (name) => {
+                console.log(this);
+                this.name = name;
+            }
+
+
+            // 以下兩種寫法不行--
+            // function changeName(name){
+            //     console.log(this);
+            // }
+
+            // let changeName = function (name){
+            //     console.log(this);
+            // }
+        }
+
+        let howard = new Dog2('Howard', 5);
+
+        console.log(howard.name); 
+
+        howard.changeName('Jason');
+        console.log(howard.name);
+
+        let ben = {
+            name: 'Ben',
+            bark(){
+                console.log('123');
+                console.log(`${this.name}`); // this = class ben
+            }
+
+            // bark: () => {
+            //     console.log(this); // this = window
+            // }
+
+
+
+
+        }
+
+        ben.bark();
+
+        let kiki = {
+            name : 'Kiki'
+        }
+
+        console.log(kiki.toString()); // [object Object]
+        console.log(JSON.stringify(kiki)); // [object Object]
+
+        let kiki2 = JSON.parse(JSON.stringify(kiki));
+        console.log(kiki2);
+
+        kiki2.name = 'Kiki2';
+        console.log(kiki);
+        console.log(kiki2);
+
+        let arr2 = new Array(1,2,3);
+        // short--
+        let arr1 = [1,2,3]; 
+        console.log(arr1, arr2);
+
+
+        // .hover(funtion-hover, function-unhover)--
+        $(function () {
+            $('.welcome5').hover(
+                function () {
+                    $(this).css({
+                        color: 'pink',
+                        fontWeight: 'bold'
+                    })
+                },
+
+                function () {
+                    $(this).css({
+                        color: '',
+                        fontWeight: ''
+                    })
+                }
+            )
+        })
+
+
+
+
+    </script>
+</head>
+<body>
+    <div>
+        <button class="btn-hello">click me</button>
+        <button class="btn-hello2">click me</button>
+        <button class="btn-hello3">click me</button>
+    </div>  
+
+    <div class="welcome">歡迎進入jQuery的程式設計殿堂</div>
+    <div class="welcome">歡迎進入jQuery的程式設計殿堂</div>
+    <div class="welcome">歡迎進入jQuery的程式設計殿堂</div>
+    <div class="welcome">歡迎進入jQuery的程式設計殿堂</div>
+    <div class="welcome5">歡迎進入jQuery的程式設計殿堂</div>
+
+
+
+    <script>
+        $('.btn-hello2').click(function (){
+            alert('Hello World2.')
+        })
+    </script>
+</body>
+</html>
