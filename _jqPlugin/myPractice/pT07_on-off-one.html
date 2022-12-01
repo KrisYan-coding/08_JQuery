@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../website/stylesheets/jquery-ui/base/jquery-ui.css">
+
+    <style>
+        *{
+            box-sizing: border-box;
+            outline: 1px solid rgba(255, 0, 0, .1);
+        }
+
+        .main-box{
+            width: 500px;
+            height: 400px;
+            box-shadow: 5px 5px 10px #777;
+            margin: auto;
+            text-align: center;
+            padding: 50px;
+        }
+
+        #p1 label, #p2 label{
+            width: 60px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="tabs">
+            <ul>
+                <li><a href="#p1">.on()</a></li>
+                <li><a href="#p2">.off() / .one()</a></li>
+            </ul>
+            <div id="p1">
+                <div class="main-box">
+                    <form action="#"></form>
+                    
+                </div>
+            </div>
+            <div id="p2">
+                <div class="main-box">
+                    <form action="#"></form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('.tabs').tabs();
+
+        $('ul a:eq(1)').click();
+
+        let inputLabels = ['姓名 ', '郵件 ', '手機 ', '地址 '];
+        let inputIDs = ['name', 'e-mail', 'tel', 'address'];
+        let inputTypes = ['text', 'email', 'tel', 'text'];
+
+        // add <label> and <input> by $.each--
+        $.each(inputLabels, function (index, value){
+            // console.log(index, value);
+            let newInput = `
+                <label for="${inputIDs[index]}">${value}</label>
+                <input type="${inputTypes[index]}" name="${inputIDs[index]}" id="${inputIDs[index]}"><br><br>`;
+            
+            $('#p1 form').append(newInput);
+        })
+        // --each is a method of $
+        
+        $('#p1 form').append(`<button type='submit'>OK</button>`);
+
+        // add event listener on every <input> by .on(),--
+        // .on() is able to address multiple event-type at once--
+        $('#p1').on('mouseenter mouseleave', 'input[type="tel"], input[type="text"], input[type="email"]', function (event){
+            // console.log(event, event.type, event.target, event.currentTarget);
+            if (event.type === 'mouseenter'){
+                $(this).css({
+                    background: 'lightblue'
+                })
+            } else if (event.type === 'mouseleave'){
+                $(this).css({
+                    background: ''
+                })
+            }
+        })
+
+        // --event.target: 最內層的目標
+        // --event.currentTarget: 當內外層都有定義 event-listener，且 event-bubbling 發生到外層時，
+        // --event.target : 內層物件，event.currentTarget : 外層(當下)物件
+        // --${this} -> event.currentTarget
+        // --沒有內外層時，event.target = event.currentTarget
+        
+        // add <label> and <input> by $.each--
+        $.each(inputLabels, function (index, value){
+            // console.log($(this)[0]);
+            let newInput = `
+                <label for="${inputIDs[index]}">${value}</label>
+                <input type="${inputTypes[index]}" name="${inputIDs[index]}" id="${inputIDs[index]}"><br><br>`;
+
+            $('#p2 form').append(newInput);
+        })
+
+        $('#p2 form').append(`<button type='submit'>OK</button>`);
+
+        // add event listener on every <input>--
+        $('#p2 form').on('mouseenter', 'input', function (){
+            $(this).css({
+                background: '#ccc'
+            })
+        })
+
+        // method 1--
+        // for (let i = 0; i < 5; i++){
+        //     window.setTimeout(function (){
+        //         console.log('***', i);
+        //     }, 1000)
+        // }
+        // --在很接近的時間執行function，1s後在很接近的時間log
+
+        // method 2 better--
+        // for (let i = 0; i < 5; i++){
+        //     window.setTimeout(function (){
+        //         console.log('***', i);
+        //     }, 1000 * (i + 1))
+        // }
+        
+        // method 3--
+        // for(let j = 0; j < 5; j++){
+        //     (function (x){
+        //         window.setTimeout(function (){
+        //             console.log('*****', x);
+        //         }, 1000 * x)
+        //     })(j + 1);
+        // }
+        // --在很接近的時間執行function，在1s 2s 3s 4s 5s後 log
+
+        // console.log('start');
+        // (function (){
+        //     console.log('call function');
+
+        //     window.setTimeout(function (){
+        //         console.log('setTimeOut1');
+        //     }, 0)
+        // })();
+
+        // console.log('end');
+        // console.log('end');
+        // console.log('end');
+        // console.log('end');
+
+        // window.setTimeout(function (){
+        //         console.log('setTimeOut2');
+        //     }, 0)
+        // --setTimeOut屬於非同步事件: 當非同步事件的 callback function 被呼叫時，會將其需要執行的任務丟到 event queue 中，並等到目前的 stack 都執行完後才會逐一執行 event queue 中的任務，且等到目前的 stack 都執行完後才會才會開始數秒
+
+        // let obj1 = {foreach: function (num, fun){
+        //     if (fun === undefined){
+        //         console.log('fun undefined');
+        //     } else {
+        //         for (let i = 0; i < num; i++){
+        //             fun(i)
+        //         }
+        //     }
+        // }}
+
+        // obj1.foreach(5);
+        // obj1.foreach(5, function (i){
+        //     console.log(10 + i);
+        // })
+        // --function (i){console.log(10 + i) }; is a callback function in foreach
+
+        // array.forEach--
+        // let arr = [1, 2, 3];
+        // arr.forEach(function (value){
+        //     console.log(value);
+        // })
+
+        // arr.forEach((value) =>  console.log(value))
+
+    </script>
+</body>
+</html>
