@@ -8,11 +8,12 @@
 
     <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./stylesheets/jquery-ui/base/jquery-ui.css">
+    <link rel="stylesheet" href="../website/stylesheets/jquery-ui/base/jquery-ui.css">
 
     <style>
         *{
             box-sizing: border-box;
+            outline: 1px solid rgba(255, 0, 0, .1);
         }
 
         .main-box{
@@ -23,6 +24,44 @@
             text-align: center;
             padding: 50px;
         }
+
+        .side{
+            width: 35%;
+            background: #ccc;
+        }
+
+        .side img{
+            width: 100%;
+            display: block;
+        }
+
+        .side img + img{
+            margin-top: 20px;
+        }
+
+        #p3 .main-box{
+            position: relative;
+            overflow: hidden;
+        }
+
+        #p3 .side{
+            padding: 20px;
+            position: absolute;
+            /* with position : .side width(content+padding) = container width(content + padding) * 50% */
+            /* without position : .side width(content+padding) = container width(content) * 50% */
+            left: -155px;
+            top: 50%;
+            transform: translateY(-50%);
+            /* transition: left 2s;
+            transition-timing-function: step-start; */
+        }
+
+        /* #p3 .side:hover{
+            left: 0;
+        } */
+
+
+
     </style>
 </head>
 <body>
@@ -47,7 +86,12 @@
             </div>
         </div>
         <div class="hover" id="p3">
-            <h1>3</h1>
+            <div class="main-box">
+                <div class="side">
+                    <img src="https://picsum.photos/300/300?random=1" alt="">
+                    <img src="https://picsum.photos/300/300?random=2" alt="">
+                </div>
+            </div>
         </div>
         
     </div>
@@ -56,7 +100,7 @@
 
         $('.tabs').tabs();
 
-        $('.tabs li a:eq(1)').click();
+        $('.tabs li a:eq(2)').click();
 
         $('.btn-click').click(function (){
             // console.log($(this).siblings('input').val());
@@ -106,12 +150,22 @@
                 }
             )
 
-
-
-
-
             // obj.animate(property, duration, complete function)
         })
+
+        $('#p3 .side').hover(
+            function (){
+                $(this).stop().animate({left: '0px', backgroundColor: '#eee'}, 2000, 'easeOutBounce')
+            },
+
+            function (){
+                $(this).stop().animate({left: '-155px', backgroundColor: '#ccc'}, 2000, 'easeOutBack')
+            }
+
+            // .stop() : not stacking animation during animation 
+        )
+
+
     </script>
 </body>
 </html>
