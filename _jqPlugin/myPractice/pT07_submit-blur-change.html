@@ -51,6 +51,21 @@
             display: flex;
             margin-bottom: 20px;
         }
+
+        fieldset{
+            /* text-align: center;
+            padding: 0; */
+            display: flex;
+        }
+
+        fieldset select, fieldset textarea{
+            /* height: 100%;
+            width: 50%;
+            display: inline-block;
+            padding: 0; */
+            width: 50%;
+            
+        }
     </style>
 </head>
 <body>
@@ -81,12 +96,26 @@
             </div>
         </div>
         <div id="p2">
-            <h1>p2</h1>
+            <fieldset>
+                <legend>select your skill</legend>
+                <select type="select" id="select1" name="specialty" size="5" multiple>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="JQuery">JQuery</option>
+                    <option value="CSS">CSS</option>
+                    <option value="HTML">HTML</option>
+                </select>
+                <textarea cols="30" rows="5"></textarea>
+            </fieldset>
+
+                
+            </form>
         </div>
     </div>
 
     <script>
         $('.tabs').tabs();
+
+        $('.tabs li:eq(1) a').click();
 
         $('#p1 form').submit(function (){
             console.log('submit');
@@ -142,6 +171,31 @@
         //     my: "left top", // position: absolute 被移動物件的定位點
         //     at: 'right bottom'  // position: relative 被移動物件 在 基準物件 上要對準的點
         // })
+
+        // .change(): select a option or finish input(lose focus when typing an input)--
+        $('#p2 #select1').change(function (){
+            console.log('change');
+            console.log($(':selected', this));
+
+            let s = '';
+            $(':selected', this).each(function (){
+                s += `${$(this).val()}\n`;
+            })
+            // $(this).find(':selected').each(function (){
+            //     s += `${$(this).val()}\n`;
+            // })
+
+            $('textarea').val(s)
+        })
+
+        
+        
+        
+        
+        
+        
+        
+        
     </script>
 </body>
 </html>
