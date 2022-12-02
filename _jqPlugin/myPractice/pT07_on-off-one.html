@@ -29,6 +29,11 @@
             width: 60px;
             display: inline-block;
         }
+
+        button{
+            width: 100px;
+        }
+
     </style>
 </head>
 <body>
@@ -50,6 +55,14 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <button id="outter-btn" style="background-color: red;">outter-btn
+        <button id="inner-btn" style="background-color: yellow;">inner-btn</button>
+    </button>
+
+    <div class="outter-div">
+        <button class="inner-btn">inner-btn</button>
     </div>
 
     <script>
@@ -101,6 +114,14 @@
             let newInput = `
                 <label for="${inputIDs[index]}">${value}</label>
                 <input type="${inputTypes[index]}" name="${inputIDs[index]}" id="${inputIDs[index]}"><br><br>`;
+            // console.log(newInput); 
+            // console.log(typeof newInput); // string
+
+            // let newInput = $(`
+            //     <label for="${inputIDs[index]}">${value}</label>
+            //     <input type="${inputTypes[index]}" name="${inputIDs[index]}" id="${inputIDs[index]}"><br><br>`)
+            // console.log(newInput);
+            // console.log(typeof newInput); // object
 
             $('#p2 form').append(newInput);
         })
@@ -113,6 +134,26 @@
                 background: '#ccc'
             })
         })
+
+        // add one time event listener by .one()--
+        $('#p2 form').one('mouseenter mouseleave', 'label', function (event){
+            if (event.type === 'mouseenter'){
+                $(this).css({
+                    color: 'red'
+                })
+            } 
+            else {
+                $(this).css({
+                    color: ''
+                })
+            }
+        })
+        // --4 個 label 中，只要有 1 個 label 事件發生，就不再監聽
+        // --mouseenter 可以 1 次 + mouseleave 可以 1 次
+
+        // cancel event listener--
+        $('#p2 form').off('mouseleave', 'label');
+        
 
         // method 1--
         // for (let i = 0; i < 5; i++){
@@ -181,6 +222,30 @@
         // })
 
         // arr.forEach((value) =>  console.log(value))
+
+        // bubbling----
+        $('#outter-btn').click(function (){
+            console.log('outter-btn clicked');
+        })
+
+        $('#inner-btn').click(function (){
+            console.log('inner-btn clicked');
+        })
+        // --an btn inside another btn does not trigger bubbling
+
+
+        $('.outter-div').click(function (event){
+            console.log(event.target);
+            console.log(event.currentTarget);
+            console.log('outter-div clicked');
+        })
+
+        $('.inner-btn').click(function (event){
+            console.log(event.target);
+            console.log(event.currentTarget);
+            console.log('inner-btn clicked');
+        })
+        // --an btn inside a div trigger bubbling
 
     </script>
 </body>
