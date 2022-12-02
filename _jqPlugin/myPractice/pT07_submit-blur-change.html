@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../website/stylesheets/jquery-ui/base/jquery-ui.css">
+
+    <style>
+        *{
+            box-sizing: border-box;
+            outline: 1px solid rgba(255, 0, 0, .1);
+        }
+
+        .main-box{
+            width: 500px;
+            height: 400px;
+            box-shadow: 5px 5px 10px #777;
+            margin: auto;
+            text-align: center;
+            padding: 50px;
+        }
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        form label{
+            width: 33.3%;
+        }
+        form input{
+            width: 33.3%;
+        }
+        form .ans{
+            width: 33.3%;
+            color: red;
+        }
+
+        .add-number{
+            position: absolute;
+        }
+
+        .item{
+            align-self: stretch;
+            display: flex;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="tabs">
+        <ul>
+            <li><a href="#p1">.submit() / .blur()</a></li>
+            <li><a href="#p2">.change()</a></li>
+        </ul>
+        <div id="p1">
+            <div class="main-box">
+                <h2>Login</h2>
+                <form method="get" action="http://localhost:3000/login">
+                    <div class="item">
+                        <label for="username">使用者帳號: </label>
+                        <input type="text" id="username" name="username">
+                        <div class="ans">&nbsp;</div>
+                    </div>
+                    <div class="item">
+                        <label for="password">使用者密碼: </label>
+                        <input type="password" id="password" name="password" value="kitty">
+                        <div class="ans">&nbsp;</div>
+                    </div>
+                    <button>提交</button> 
+                    <!-- --default button type: submit -->
+    
+                </form>
+                
+            </div>
+        </div>
+        <div id="p2">
+            <h1>p2</h1>
+        </div>
+    </div>
+
+    <script>
+        $('.tabs').tabs();
+
+        $('#p1 form').submit(function (){
+            console.log('submit');
+            $(this).find('.ans').html('');
+
+            let emptySubmit = [];
+            $(this).find('input').each(function (index, value){
+                // console.log(index, value);
+                // console.log($(this));
+
+                if ($(this).val() === ''){
+                    console.log('not to submit');
+                    $(this).css({
+                        border: '1px solid red'
+                    })
+                    
+                    $(this).next().html(`不可空白!!!`)
+                    emptySubmit.push($(this));
+                }
+            })
+            
+            if (emptySubmit){
+                emptySubmit[0].focus(); // focus 在第一個空白欄位
+                return false
+            }
+            // --return false 要在 .submit() 的 callback function 當層，不可以在更下層
+            
+        })
+
+        $('#p1 form input').blur(function (){
+            console.log('blur');
+
+            // console.log(this);
+            if ($(this).val() === ''){
+                if ($(this).css('borderColor') !== 'rgb(255, 0, 0)'){
+                    $(this).next().html(`不可空白`);
+                }
+            } else {
+                $(this).css({
+                    border: ''
+                })
+                $(this).next().html(``);
+            }
+        })
+
+
+        // let btn = $('button');
+        // let hello = $(`<div class='add-number'>123456</div>`);
+        // $('#p1').append(hello);
+        // console.log('123');
+        // hello.position({
+        //     of: btn,  // btn {position: relative}
+        //     my: "left top", // position: absolute 被移動物件的定位點
+        //     at: 'right bottom'  // position: relative 被移動物件 在 基準物件 上要對準的點
+        // })
+    </script>
+</body>
+</html>
