@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+
+    <!-- jQuery-UI css-- -->
+    <!-- 1. 基礎樣式css-- -->
+    <link rel="stylesheet" href="../website/stylesheets/greefies/style.css"> 
+    <!-- 2. 主題樣式css-- -->
+    <link rel="stylesheet" href="../website/stylesheets/jquery-ui/ui-lightness/jquery-ui.css">
+
+    <link href="../website/stylesheets/anythingslider/theme-cs-portfolio.css" rel="stylesheet" />
+
+
+    
+
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        body{
+            background: #fff;
+        }
+
+        .form-row{
+            display: flex;
+            margin: 8px 0;
+        }
+
+        .form-row:first-child input{
+            margin-right: 5px;
+        }
+
+        .form-row:first-child button{
+            padding: 0 2px;
+        }
+
+        .form-row:first-child button img{
+            display: block;
+        }
+
+        .form-row input, .form-row textarea{
+        /* weight c1 d1*/
+            width: 200px;
+            background: #DBEDF3;
+            border: 1px solid #ddd;
+        }
+
+        .green-box{
+            display: flex;
+
+        }
+
+        .green-box > *{
+            flex: 1 0 0;
+        }
+
+        /* weight c1 d1 : need higher weight than original background-color, or the original bg-color will override the effect*/
+        .form-row .ui-autocomplete-loading {
+            background: url("../website/images/ui-anim_basic_16x16.gif") right center no-repeat, #DBEDF3;
+        }
+
+    </style>
+
+    <!-- jQuery-- -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <!-- jQuery-UI-- -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+
+    <!-- jQuery-UI date picker add chinese version ( default english )-- -->
+    <script src="../website/javascripts/jquery.ui.datepicker-zh-TW.js"></script>
+    
+
+
+
+</head>
+<body>
+    <div class="main-container">
+        <header></header>
+        <div class="green-box">
+            <div class="text-content">
+                <div class="read-more">
+                    <a href="#" title="詳細內容">打招呼</a>
+                    <a href="#" title="詳細內容">說英文</a>
+                    <!-- --href='#': go to top of current page -->
+                </div>
+            </div>
+            <div class="right-nav">
+                <div class="accordion">
+                    <div>課程1</div>
+                    <ul>
+                        <li><a href="#">1111</a></li>
+                        <li><a href="#">2222</a></li>
+                        <li><a href="#">3333</a></li>
+                    </ul>
+                    <div>課程2</div>
+                    <ul>
+                        <li><a href="#">4444</a></li>
+                        <li><a href="#">5555</a></li>
+                        <li><a href="#">6666</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="left-content"></div>
+            <div class="right-content">
+                <div class="contact-info-box">
+                    <h2>Contact Information</h2>
+                    <div class="address" title="this is a title">中正路二段</div>
+                    <!-- --title without jQuery-ui style -->
+                    <div class="address" data-geo="">中正路二段</div>
+                    <hr>
+                    <div class="tel">09123123123</div>
+                    <div class="tel">09456456546</div>
+                    
+                </div>
+                <div class="contact-form">
+                    <h2>Contact form</h2>
+                    <form action="#">
+                        <div class="form-row">
+                            <label for="input-date">期望回覆日</label>
+                            <input type="text" class="input-date" id="input-date"><br>
+                        </div>
+                
+                        <div class="form-row">
+                            <label for="input-name">姓名</label>
+                            <input type="text" id="name" name="name"><br>
+                        </div>
+                
+                        <div class="form-row">
+                            <label for="input-email">Email</label>
+                            <input type="email" id="input-email"><br>
+                        </div>
+                
+                        <div class="form-row">
+                            <label for="input-phone">Phone</label>
+                            <input type="tel" id="input-phone"><br>
+                        </div>
+                
+                        <div class="form-row">
+                            <label for="input-called-phone">曾洽電話</label>
+                            <input type="tel" id="input-called-phone"><br>
+                        </div>
+                
+                        <div class="form-row">
+                            <label for="input-satisfaction">滿意度</label>
+                            <input type="number" id="input-satisfaction"><br>
+                        </div>
+                
+                        <div class="form-row">
+                            <label for="input-msg">Message</label>
+                            <textarea name="input-msg" id="input-msg" cols="30" rows="5"></textarea><br>
+                        </div>
+                
+                        <input type="submit" value="submit">
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        // html + css template
+        // jQuery template
+        // bootstrap template
+
+        $('.input-date').datepicker({
+            changeYear: true, // 可下拉選年
+            changeMonth: true, // 可下拉選月
+            showOn: 'both', // focus, button, both
+            buttonImage: '../website/images/calendar.png',
+            buttonText: '請選日期',
+            numberOfMonths: [1, 2], // [row, col]
+            yearRange: '-5:+5', // '-5:+5', '2000:2050', 'c-5:c+5'(c: 目前選的日期)
+        });
+
+        // console.log($.datepicker.regional)
+        // console.log($.datepicker)
+
+        $('.green-box .accordion').accordion();
+
+        // 建立一個子視窗，可以給多個物件使用--
+        let dialog1 = $('<div class="ggg"></div>').dialog({
+            width: 500,
+            // height: 200,
+            autoOpen: false, 
+            modal: true, // true: 彈出的子視窗要先被close才可以控制原有視窗
+            title: 'this is a pop-up window',
+            buttons: [
+                {
+                    text: 'Finish',
+                    'click': function (){
+                        $(this).dialog('close');
+                    }
+                },
+                {
+                    text: 'Change Color',
+                    'click': function (){
+                        $(this).css({
+                            color: 'red',
+                        })
+                    }
+                },
+                {
+                    text: 'send data',
+                    'click': function (){
+                        $.ajax({
+                            method: 'get',
+                            url: '',
+                            data: 'firstname=hello&lastname=kitty',
+                            success: function(){
+                                console.log('Data sent.');
+                            }
+                        })
+                    }
+                }
+            ]
+
+        })
+
+        $('.read-more a').button();
+
+        // add click event on a-button--
+        $('.read-more a:first-child').click(function (){
+            console.log('打招呼');
+
+            // dialog1.dialog('open'); // open dialog1
+            // dialog1.html('歡迎光臨');
+
+            // --short--
+            // dialog1.html('歡迎光臨').dialog('open');
+
+            // or use load()--
+            dialog1.load('../website/BiologicalClock.html #div1').dialog('open');
+
+            // reset title--
+            // dialog1.dialog({
+            //     title: '123',
+            // });
+
+            return false; 
+            // --阻止 $('.read-more a') 的預設行為(超連結) -> 要在最後一行(return stops the function)
+            // --或用 event.preventDefault() 並新增 event
+
+        })
+
+        $('.read-more a:nth-child(2)').click(function (){
+            dialog1.html('Hello World.').dialog('open');
+
+            return false;
+        })
+
+        // 自動選字--
+        let keyword = ['Kris0404', 'mary', 'may', 'michael', 'marco']
+        $('.contact-form input[name="name"]').autocomplete({
+            // source: keyword,
+            source: 'http://localhost:3000/autocomplete' 
+            // --每打一個字會送一次請求
+            // --將所打的關鍵字送到 server，server 會回傳資料庫中包含所打的關鍵字的資料 array
+        })
+        // --method = 'get': data stored in url
+        // --method = 'post': data stored in body of request
+
+
+        $(document).tooltip({
+            items: "[title], [data-geo]", // 針對有 title 或 data-geo 屬性的物件
+            content: function (){
+                // console.log(this);
+                let eleAddress = $(this); // div.address
+                if (eleAddress.is("[title]")){
+                    // --if eleAddress has 'title' attr. 
+                    // --or if one object in eleAddress has 'title' attr. 
+
+                    // console.log('attr title');
+                    return eleAddress.attr('title');
+                    // --title with jQuery-ui style
+
+                } else { // else if (eleAddress.is('[data-geo]'))
+                    // console.log('attr data-geo');
+
+                    let address = eleAddress.text();
+                    // console.log(address);
+
+                    return "<img src='https://maps.googleapis.com/maps/api/staticmap" +
+                                "?zoom=15&size=280x280&maptype=roadmap&key=AIzaSyDcs9UPDbrYVCwtvYudAYHo0gzn0P1gc-M" +
+                                "&markers=" + address + "'/>"
+                    
+                }
+            },
+            show: {
+                effect: 'fadeIn', 
+                duration: 'normal',
+                delay: 0,
+                easing: 'swing'
+            },
+            hide: {
+                effect: 'explode',
+                delay: 0,
+            }
+
+        })
+
+        // draggable & droppable--
+        $('.tel').draggable({
+            helper: 'clone', 
+            opacity: 0.5,
+        })
+
+        $('#input-called-phone').droppable({
+            drop: function(event, ui){
+                // console.log(event);
+                // console.log(this);
+                // console.log($(this));
+                // console.log(ui.draggable);
+                // console.log(ui.draggable.text());
+                $(this).val(ui.draggable.text());
+                
+            }
+        })
+        
+        // AJAX: asynchronous javascript ans xml
+        // --browser 可以向 server 請求資料，並將回應的資料放到目前的頁面中
+        // --AJAX 屬於非同步的請求: 不用等到請求收到回應，程式可以繼續往下走，當收到請求的回應後，才執行設定好的 callback function
+
+    </script>
+    
+
+
+    
+</body>
+</html>
