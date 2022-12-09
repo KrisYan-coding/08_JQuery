@@ -17,6 +17,14 @@
 
     <link href="../website/stylesheets/anythingslider/theme-cs-portfolio.css" rel="stylesheet" />
 
+    <!-- jQuery-- -->
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <!-- jQuery-UI-- -->
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+
+    <!-- jQuery-UI date picker add chinese version ( default english )-- -->
+    <script src="../website/javascripts/jquery.ui.datepicker-zh-TW.js"></script>
+
 
     
 
@@ -66,16 +74,17 @@
         .form-row .ui-autocomplete-loading {
             background: url("../website/images/ui-anim_basic_16x16.gif") right center no-repeat, #DBEDF3;
         }
+        
+        .draggable{
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
 
     </style>
 
-    <!-- jQuery-- -->
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    <!-- jQuery-UI-- -->
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
 
-    <!-- jQuery-UI date picker add chinese version ( default english )-- -->
-    <script src="../website/javascripts/jquery.ui.datepicker-zh-TW.js"></script>
     
 
 
@@ -119,7 +128,7 @@
                     <div class="address" data-geo="">中正路二段</div>
                     <hr>
                     <div class="tel">09123123123</div>
-                    <div class="tel">09456456546</div>
+                    <div class="tel" id='draggable' class="draggable">09456456546</div>
                     
                 </div>
                 <div class="contact-form">
@@ -147,7 +156,7 @@
                 
                         <div class="form-row">
                             <label for="input-called-phone">曾洽電話</label>
-                            <input type="tel" id="input-called-phone"><br>
+                            <input type="tel" id="input-called-phone" class="dropzone"><br>
                         </div>
                 
                         <div class="form-row">
@@ -311,23 +320,45 @@
 
         })
 
-        // draggable & droppable--
-        $('.tel').draggable({
-            helper: 'clone', 
-            opacity: 0.5,
-        })
+        // // draggable & droppable--
+        // $('.tel').draggable({
+        //     helper: 'clone', 
+        //     opacity: 0.5,
+        // })
 
-        $('#input-called-phone').droppable({
-            drop: function(event, ui){
-                // console.log(event);
-                // console.log(this);
-                // console.log($(this));
-                // console.log(ui.draggable);
-                // console.log(ui.draggable.text());
-                $(this).val(ui.draggable.text());
+        // $('#input-called-phone').droppable({
+        //     drop: function(event, ui){    // callback function when drop event happens
+        //         console.log(event); // drop event
+        //         console.log(this); // <input> element
+        //         console.log($(this)); // <input> element jQuery form
+        //         console.log(ui.draggable);  // dragged object
+        //         console.log(ui.draggable.text()); // innerText of the dragged object, the first (index = 0) object if ui.draggable refers to multiple objects
+        //         $(this).val(ui.draggable.text());
                 
-            }
-        })
+        //     }
+        // })
+
+        // let dragged = null;
+
+        // const source = document.getElementById("draggable");
+        // source.addEventListener("dragstart", (event) => {
+        // // store a ref. on the dragged elem
+        //     dragged = event.target;
+        // });
+
+        // const target  = document.querySelector('#input-called-phone');
+        // document.addEventListener('dragover', (event) => {
+        //     event.preventDefault();
+        // })
+
+        // target.addEventListener('drop', (event) => {
+        //     event.preventDefault();
+
+        //     if (event.target.className === 'dropzone'){
+        //         console.log(dragged);
+        //         event.target.appendChild(dragged)
+        //     }
+        // })
         
         // AJAX: asynchronous javascript ans xml
         // --browser 可以向 server 請求資料，並將回應的資料放到目前的頁面中
