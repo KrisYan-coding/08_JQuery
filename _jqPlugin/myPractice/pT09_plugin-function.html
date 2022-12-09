@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+    
+</head>
+<body>
+    
+    <div class="hello">Hello Wrold.</div>
+    <div class="hello">Hello Wrold.</div>
+    <div class="hello">Hello Wrold.</div>
+    <div class="hello">Hello Wrold.</div>
+    <div class="hello">Hello Wrold.</div>
+    <div class="hello">Hello Wrold.</div>
+    <div class="hello">Hello Wrold.</div>
+
+    <script>
+        // 立即呼叫的函式 : IIFE(immediately invoked function expression)--
+        // (function (num){alert(num)})(100);
+
+        // const alertNum = function (num){
+        //     alert(num)
+        // }
+        // alertNum(100);
+
+        // function alertNum (num){
+        //     alert(num)
+        // };
+        // alertNum(100);
+
+        // use IIFE to prevent api other than jQuery which also use the '$' sign--
+        (function ($){
+            // put jQuery code inside---
+            $.fn.textBlueify = function (){  // 在 ($ 的 fn)=> $('selector') 新增 textBlueify()
+                // console.log(this);
+                $(this).css({
+                    color: 'blue',
+                })
+
+                return $(this) // 可以串聯
+            }
+
+            $.fn.textBoldWeight = function(){
+                $(this).css({
+                    fontWeight: 'bold',
+                })
+
+                return $(this);
+            }
+
+            // set text style, use defaultSetting if options is not input, use finalSetting if options is input--
+            $.fn.textStyle = function (options){
+                let defaultSetting = {
+                    'font-size': '1.5em'
+                }
+
+                let finalSetting = $.extend(defaultSetting, options) // add new attr. if attr. doesn't exists, modify current attr. value if attr. exists
+
+                // console.log(finalSetting);
+
+                $(this).css(finalSetting);
+
+                return $(this)
+            }
+
+            $.fn.textStyle2 = function (options){
+                let finalSetting = $.extend({}, $.fn.textStyle2.defaultSetting, options)
+
+                return $(this).css(finalSetting);
+            }   
+            $.fn.textStyle2.defaultSetting = {
+                textDecoration: 'underline'
+            }
+
+            console.log($.fn.textStyle2); // $.fn.textStyle2 本身是一個function，
+            console.log($.fn.textStyle2.defaultSetting); // $.fn.textStyle2 也可以擁有屬性
+
+        })(jQuery)
+
+        $('.hello:gt(2)').textBlueify().textBoldWeight().textStyle();
+        $('.hello:lt(1)').textBlueify().textBoldWeight().textStyle({'font-size': '2em'});
+        $('.hello:eq(1)').textBlueify().textBoldWeight().textStyle({fontSize: '3em'}); // fontSize = 'font-size'
+        $('.hello:eq(2)').textBlueify().textBoldWeight().textStyle({fontStyle: 'italic'});
+        $('.hello:eq(5)').textStyle2();
+        $('.hello:eq(6)').textStyle2({color: 'red', textDecoration: 'overline'});
+
+        let obj = {
+            fontSize: '100',
+            'font-size': '100',
+        }
+
+        console.log(obj.fontSize);
+        // console.log(obj.'font-size'); // error
+        console.log(obj['font-size']);
+    </script>
+</body>
+</html>

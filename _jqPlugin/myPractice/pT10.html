@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+    <script src="../website/javascripts/my-paginator.js"></script>
+    
+</head>
+<body>
+    <div class="container border shadow w-50 mt-5 p-5">
+        <h3 class="my-3 text-center">商品列表</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-sm" id="table1">
+                <thead>
+                    <tr>
+                        <th class="text-center align-middle">品號</th>
+                        <th class="text-center align-middle">圖片</th>
+                        <th class="text-center align-middle">品名</th>
+                        <th class="text-end align-middle">單價</th>
+                        <th class="text-end align-middle">庫存量</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <div id="paginator1"></div>
+    </div>    
+    
+    <script>
+        
+        $(function (){
+            
+            // request production.json by ajax--
+            $.ajax({
+                method: 'get',
+                url: '../website/data/mypaginator/products.json',
+                dataType: 'json', // convert responsed data into ___ format: 'text', 'json'(->array) 
+                success: function (products){
+                    console.log(products);
+
+                    $.each(products, function (index, item){
+                        let tr = `
+                            <tr>
+                                <td>${item.productid}</td>    
+                                <td><img src="../website/${item.photo}" width="50" height="50"/></td>    
+                                <td>${item.productname}</td>    
+                                <td>${item.unitprice}</td>    
+                                <td>${item.unitsinstock}</td>    
+                            </tr>`;
+                        $('table tbody').append(tr);
+                    })
+
+                    $('table tbody tr').myPaginator({
+                        paginatorWrapper: "#paginator1", //設定分頁器所在的「容器元素」選擇器(預設："#paginator1")
+                        lengthPerPage: 6,                //設定每頁所顯示的「資料筆數」(預設：8)
+                        pageAnchorsPerBatch: 6           //設定每頁所顯示的「頁碼連結數」(預設：5)
+
+                    });
+                }
+
+            })
+
+            
+        })
+
+
+
+
+
+
+        // JSON: 
+        // --1. 物件屬性值一定要雙引號
+        // --2. 字串只用雙引號
+
+        // 靜態檔案 -> 用 method = 'get'
+        // --1. html
+        // --2. css
+        // --3. image format
+        // --4. json
+    </script>
+</body>
+</html>
