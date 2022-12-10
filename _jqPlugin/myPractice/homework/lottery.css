@@ -1,0 +1,69 @@
+
+body {
+    background: #fff;
+    font-family: 'Noto Sans TC', sans-serif;
+    box-sizing: border-box;
+    --ball-size: 50px;
+    outline: 1px solid rgba(255, 0, 0, .1);
+  }
+  
+.ball{
+    position:absolute;
+    left: -120px;
+    width:var(--ball-size);
+    height:var(--ball-size);
+    border-radius:50%;
+    box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.4);
+}
+
+.number{
+    width:100%;
+    height:100%;
+    text-align:center;
+    line-height: var(--ball-size);
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* ball colors */
+.ball.red{    background: radial-gradient(circle at 20px 20px, #f30, #001);}
+.ball.yellow{ background: radial-gradient(circle at 20px 20px, #fc0, #001);}
+
+
+.number-selector{
+    --number-select_width: 300px;
+    display: flex;
+    width: var(--number-select_width);
+    height: var(--number-select_width);
+    flex-wrap: wrap;
+    margin: auto;
+}
+
+.number-btn{
+    width: calc(var(--number-select_width) / 7);
+    margin: 0;
+    background: pink;
+    position: relative;
+    padding: 0;
+    border: 2px solid #fff;
+    font-size: 24px;
+}
+
+
+.btn-selected{
+    background: yellow;
+}
+
+.btn-correct{
+    color: green;
+    font-weight: bold;
+}
+
+.btn-wrong{
+    color: red;
+    font-weight: bold;
+}
+
+
+
