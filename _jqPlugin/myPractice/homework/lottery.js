@@ -1,11 +1,4 @@
 
-// color definition--
-let colorUnselected = 'pink',
-	colorSelected = '#ff0',
-	colorCorrect = 'green',
-	colorWrong = 'gray';
-
-
 // 產生 1 ~ 49 的按鈕--
 let numberSelect = $('.number-selector');
 for (i = 0; i < 49; i++){
@@ -16,13 +9,11 @@ for (i = 0; i < 49; i++){
 // 1 ~ 49 數字按鈕增加 click(選數字), dblclick(刪除所選數字)--
 // 1. click event--
 $('.number-btn').click(function (){
-	console.log('btn-selected');
+	// console.log('btn-selected');
 	if (! $(this).hasClass('btn-selected')){
-		console.log('已選個數', $('.btn-selected').length, $('.btn-selected').length >= 6);
 		if ($('.btn-selected').length >= 6){
 			// 單擊未選 & 超過 6 個數字: 不選 & 提醒--
 			alert("只能選6個數字，點兩下可取消選取的數字");
-			// console.log("只能選6個數字，點兩下可取消選取的數字");
 		} else {
 			// 單擊未選 & 不超過 6 個數字: 選擇--
 			$(this).addClass('btn-selected');
@@ -42,7 +33,7 @@ function pickNumbers(num){
 	let autoPicks = [];
 	let array49 = [...Array(49).keys()]; // [0 ~ 48]
 	let numLeft = 49;
-	// console.log('array49', array49);
+
 	for (i = 0; i < num; i++){
 		let ranIdx = Math.floor( Math.random() * numLeft);
 		// console.log('ranIdx', ranIdx);
@@ -68,7 +59,7 @@ $('.auto-pick').click(function (){
 
 	// auto picks--
 	playerNums = pickNumbers(6);
-	console.log(playerNums);
+	// console.log(playerNums);
 
 	// color picks--
 	for (i = 0; i < 6; i++){
@@ -76,8 +67,16 @@ $('.auto-pick').click(function (){
 	}
 })
 
-// 開獎--
+// 開獎按鈕新增 click--
 $('.btn-ans').click(function (){
+	if ($('.btn-selected').length < 6){
+		alert('需選擇6個數字');
+		return
+	}
+	
+	$('.final-result1').empty()
+	$('.final-result2').empty()
+
 	$(this).attr('disabled', true);
 	let ansNums = pickNumbers(7);
 
@@ -92,14 +91,12 @@ $('.btn-ans').click(function (){
 		resetBall(j, $(window).width()/2-(diameter*(i)) + 245);
 	}
 
-	console.log(balls); // array of balls
 	itv = setInterval(() => {
 		if( i >= n){
 			clearInterval(itv);
 			checkNum(ansNums);
 			$(this).attr('disabled', false);
 		} else{
-			console.log('roll', i);
 			rotateBall( $(window).width()/2-(diameter*(i)) + 245, ansNums[i] );  // input = distance, 每顆球要走的距離，每球遞減，每球減少一顆球的直徑
 			i++;
 		}
@@ -136,25 +133,22 @@ $('.btn-ans').click(function (){
 
 	function checkNum(ansNums){
 		let playerNums = $('.btn-selected').map(function (item) {
-			console.log(this);
 			return parseInt(this.innerText);
 		});
 
 		playerNums = [...playerNums];
 
-		console.log(typeof playerNums[0]);
-		console.log(ansNums.slice(0, 6));
-
 		const WinNormalNums = ansNums.slice(0, 6).filter(item => playerNums.includes(item));
-		console.log(WinNormalNums);
+		console.log('WinNormalNums', WinNormalNums);
 		let NumOfWinNormalNums = WinNormalNums.length;
+		console.log('NumOfWinNormalNums', NumOfWinNormalNums);
 
 		const WinSpecialNum = playerNums.includes(ansNums[6]);
 		console.log(WinSpecialNum); 
 
 		let finalResult = '';
+		let resultColor = '#ef233c';
 		if (WinSpecialNum){
-			console.log('1', NumOfWinNormalNums);
 			switch(NumOfWinNormalNums){
 				case 2:
 					finalResult = '柒獎';
@@ -168,11 +162,14 @@ $('.btn-ans').click(function (){
 				case 5:
 					finalResult = '貳獎';
 					break;
+				case 6:
+					finalResult = '頭獎';
+					break;
 				default:
-					finalResult = '沒得獎'
+					finalResult = '沒得獎';
+					resultColor = '#8d99ae';
 			}
 		} else {
-			console.log('2', NumOfWinNormalNums);
 			switch(NumOfWinNormalNums){
 				case 3:
 					finalResult = '普獎';
@@ -188,18 +185,26 @@ $('.btn-ans').click(function (){
 					break;
 				default:
 					finalResult = '沒得獎';
+					resultColor = '#8d99ae';
 			}
 
 		}
 
-		console.log('finalResult', finalResult);
-		$('.final-result').empty().append(`
-			開獎結果: ${finalResult}<br>
-			一般號中${NumOfWinNormalNums}個: ${WinNormalNums}<br>
-			特別號中${(WinSpecialNum)? 1:0}個: ${(WinSpecialNum)? ansNums[6]:''}`)
+		$('.final-result1').append(`
+			一般號中 ${NumOfWinNormalNums}個: ${WinNormalNums.join(', ')}<br>
+			特別號中 ${(WinSpecialNum)? 1:0}個: ${(WinSpecialNum)? ansNums[6]:''}`)
+		$('.final-result2').append(`${finalResult}`).css({
+			color: resultColor,
+		})
 
 	}
 
+})
+
+
+// 重新選號按鈕新增 click--
+$('.restart').click(function (){
+	$('.number-btn').removeClass('btn-selected');
 })
 
 

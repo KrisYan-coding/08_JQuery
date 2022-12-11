@@ -1,11 +1,16 @@
 
 body {
-    background: #fff;
+    background: #073b4c;
     font-family: 'Noto Sans TC', sans-serif;
     box-sizing: border-box;
     --ball-size: 50px;
     outline: 1px solid rgba(255, 0, 0, .1);
-  }
+}
+
+h1{
+    color: #ffd166;
+    text-align: center;
+}
   
 .ball{
     position:absolute;
@@ -27,23 +32,43 @@ body {
 }
 
 /* ball colors */
-.ball.red{    background: radial-gradient(circle at 20px 20px, #f30, #001);}
-.ball.yellow{ background: radial-gradient(circle at 20px 20px, #fc0, #001);}
+.ball.red{    background: radial-gradient(circle at 20px 20px, #ef476f, #001);}
+.ball.yellow{ background: radial-gradient(circle at 20px 20px, #ffd166, #001);}
 
 
+/* header */
+header{
+    display: flex;
+    justify-content: center;
+}
+
+/* rules */
+.rules{
+    width: 250px;
+    color: #fff;
+    margin-left: 20px;
+}
+
+.rules .title{
+    font-size: 20px;
+    text-align: center;
+    border-bottom: 1px solid #fff;
+    margin-bottom: 5px;
+}
+
+/* number-selector */
 .number-selector{
     --number-select_width: 300px;
     display: flex;
     width: var(--number-select_width);
     height: var(--number-select_width);
     flex-wrap: wrap;
-    margin: auto;
 }
 
 .number-btn{
     width: calc(var(--number-select_width) / 7);
     margin: 0;
-    background: pink;
+    background: #118ab2;
     position: relative;
     padding: 0;
     border: 2px solid #fff;
@@ -52,7 +77,7 @@ body {
 
 
 .btn-selected{
-    background: yellow;
+    background: #ffd166;
 }
 
 .btn-correct{
@@ -63,6 +88,70 @@ body {
 .btn-wrong{
     color: red;
     font-weight: bold;
+}
+
+main{
+    display: flex;
+    color: #fff;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.manipulate{
+    width: 300px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.manipulate button{
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #000;
+    height: 60px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.manipulate button:nth-child(1){
+    background: #edae49;
+    flex: 1 1 0;
+    margin: 2px 5px;
+}
+.manipulate button:nth-child(2){
+    background: #d1495b;
+    flex: 1 1 0;
+    margin: 2px 5px;
+}
+.manipulate button:nth-child(3){
+    background: #00798c;
+    flex-basis: 300px;
+    margin-top: 6px;
+}
+
+.result{
+    width: 250px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.result .title{
+    border-bottom: 1px solid #fff;
+    font-size: 20px;
+    text-align: center;
+}
+
+.result .final-result2{
+    flex-grow: 1;
+    margin-top: 5px;
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.rolling-ball{
+    margin-top: 30px;
 }
 
 
