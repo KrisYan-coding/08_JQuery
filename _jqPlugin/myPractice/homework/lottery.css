@@ -111,6 +111,16 @@ main{
     font-size: 16px;
     font-weight: bold;
     color: #fff;
+    opacity: .8;
+    transition: box-shadow .3s;
+}
+
+.manipulate button:hover{
+    opacity: 1;
+}
+
+.manipulate button:active{
+    box-shadow: none;
 }
 
 .manipulate button:nth-child(1){
@@ -150,9 +160,17 @@ main{
     font-weight: bold;
 }
 
+.result .wait-icon{
+    display: none;
+    text-align: center;
+    font-size: 50px;
+}
+
 .rolling-ball{
     margin-top: 30px;
 }
+
+
 
 
 

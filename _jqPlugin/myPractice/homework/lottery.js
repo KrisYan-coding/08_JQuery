@@ -74,8 +74,14 @@ $('.btn-ans').click(function (){
 		return
 	}
 	
-	$('.final-result1').empty()
-	$('.final-result2').empty()
+	// 清空"開獎結果"--
+	$('.final-result1').empty();
+	$('.final-result2').empty();
+
+	// 顯示轉圈圈--
+	$('.wait-icon').css({
+		display: 'block'
+	})
 
 	$(this).attr('disabled', true);
 	let ansNums = pickNumbers(7);
@@ -189,6 +195,11 @@ $('.btn-ans').click(function (){
 			}
 
 		}
+
+		// 關閉轉圈圈--
+		$('.wait-icon').css({
+			display: ''
+		})
 
 		$('.final-result1').append(`
 			一般號中 ${NumOfWinNormalNums}個: ${WinNormalNums.join(', ')}<br>
