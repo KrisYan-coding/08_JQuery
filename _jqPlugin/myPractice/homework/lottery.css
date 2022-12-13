@@ -11,38 +11,14 @@ h1{
     color: #ffd166;
     text-align: center;
 }
-  
-.ball{
-    position:absolute;
-    left: -120px;
-    width:var(--ball-size);
-    height:var(--ball-size);
-    border-radius:50%;
-    box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.4);
-}
-
-.number{
-    width:100%;
-    height:100%;
-    text-align:center;
-    line-height: var(--ball-size);
-    font-size: 25px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-/* ball colors */
-.ball.red{    background: radial-gradient(circle at 20px 20px, #ef476f, #001);}
-.ball.yellow{ background: radial-gradient(circle at 20px 20px, #ffd166, #001);}
 
 
-/* header */
+/* --header */
 header{
     display: flex;
     justify-content: center;
 }
 
-/* rules */
 .rules{
     width: 250px;
     color: #fff;
@@ -56,7 +32,6 @@ header{
     margin-bottom: 5px;
 }
 
-/* number-selector */
 .number-selector{
     --number-select_width: 300px;
     display: flex;
@@ -75,21 +50,12 @@ header{
     font-size: 24px;
 }
 
-
 .btn-selected{
     background: #ffd166;
 }
 
-.btn-correct{
-    color: green;
-    font-weight: bold;
-}
 
-.btn-wrong{
-    color: red;
-    font-weight: bold;
-}
-
+/* --main-- */
 main{
     display: flex;
     color: #fff;
@@ -166,11 +132,38 @@ main{
     font-size: 50px;
 }
 
+
+/* --rolling-balls-- */
 .rolling-ball{
     margin-top: 30px;
 }
 
+.ball{
+    position:absolute;
+    left: -120px;
+    width:var(--ball-size);
+    height:var(--ball-size);
+    border-radius:50%;
+    box-shadow: 10px 10px 20px -10px rgba(0,0,0,0.4);
+}
 
+.number{
+    width:100%;
+    height:100%;
+    text-align:center;
+    line-height: var(--ball-size);
+    font-size: 25px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.ball.red{    
+    background: radial-gradient(circle at 20px 20px, #ef476f, #001);
+}
+
+.ball.yellow{ 
+    background: radial-gradient(circle at 20px 20px, #ffd166, #001);
+}
 
 
 
